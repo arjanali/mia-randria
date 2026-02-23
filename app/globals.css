@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-bg: #f8f6f2;
+  --color-bg-alt: #efece6;
+  --color-text: #1a1917;
+  --color-text-muted: #5c5954;
+  --color-accent: #a67c52;
+  --color-accent-soft: rgba(166, 124, 82, 0.15);
+  --color-border: rgba(26, 25, 23, 0.08);
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+  --space-2xl: 6rem;
+  --max-width: 72rem;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration: 0.5s;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-outfit), system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-text);
+  background: var(--color-bg);
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* The Edit section overrides (editorial feel) */
+.the-edit-content p {
+  margin-bottom: 1.25em;
+}
+.the-edit-content p:last-child {
+  margin-bottom: 0;
+}
+.the-edit-content h2 {
+  font-size: 1.5rem;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+.the-edit-content h3 {
+  font-size: 1.25rem;
+  margin-top: 1.25em;
+  margin-bottom: 0.4em;
+}
+.the-edit-content a {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+.the-edit-content a:hover {
+  opacity: 0.85;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scrollPulse {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scaleY(0.6);
+    transform-origin: top;
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+}
