@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase";
 
 const navLinks = [
   { href: "/#portfolio", label: "Portfolio" },
@@ -39,9 +39,13 @@ export default function Header() {
         ? "bg-[rgba(248,246,242,0.92)] backdrop-blur-[12px] border-b border-[var(--color-border)]"
         : "";
 
-  const textClass = isAdmin || isTheEdit || scrolled ? "text-[var(--color-text)]" : "text-white";
+  const textClass =
+    isAdmin || isTheEdit || scrolled
+      ? "text-[var(--color-text)]"
+      : "text-white";
 
   async function handleSignOut() {
+    const supabase = createClient();
     await supabase.auth.signOut();
     router.push("/admin/login");
     router.refresh();
@@ -72,7 +76,10 @@ export default function Header() {
   if (isAdminLogin) {
     return (
       <header className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-6 py-4 bg-[var(--color-bg)] border-b border-[var(--color-border)] text-[var(--color-text)]">
-        <Link href="/" className="font-display text-2xl font-semibold tracking-wide">
+        <Link
+          href="/"
+          className="font-display text-2xl font-semibold tracking-wide"
+        >
           Mia Randria
         </Link>
       </header>
