@@ -8,24 +8,26 @@ export default function AdminLoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setError("");
+    setErrorMessage("");
     setLoading(true);
-    const { error: err } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
     setLoading(false);
-    if (err) {
-      setError(err.message);
+    if (error) {
+      setErrorMessage(error.message);
       return;
     }
-    router.push("/admin/dashboard");
-    router.refresh();
+    if (!error) {
+      router.push("/admin/dashboard");
+      router.refresh();
+    }
   }
 
   return (
@@ -38,9 +40,9 @@ export default function AdminLoginPage() {
           onSubmit={handleSubmit}
           className="p-8 bg-[var(--color-bg)] border border-[var(--color-border)]"
         >
-          {error && (
+          {errorMessage && (
             <p className="text-sm text-red-600 mb-4" role="alert">
-              {error}
+              {errorMessage}
             </p>
           )}
           <label className="block text-sm font-medium text-[var(--color-text)] mb-2">

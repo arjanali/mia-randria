@@ -31,9 +31,11 @@ export async function updateSession(request: NextRequest) {
 
   await supabase.auth.getClaims();
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  const { data: { session } } = await supabase.auth.getSession();
+
+  if (session && request.nextUrl.pathname === "/admin/login") {
+    return NextResponse.redirect(new URL("/admin/dashboard", request.url));
+  }
 
   const isAdminRoute = request.nextUrl.pathname.startsWith("/admin");
   const isLoginPage = request.nextUrl.pathname === "/admin/login";
@@ -41,12 +43,6 @@ export async function updateSession(request: NextRequest) {
   if (isAdminRoute && !isLoginPage && !session) {
     const url = request.nextUrl.clone();
     url.pathname = "/admin/login";
-    return NextResponse.redirect(url);
-  }
-
-  if (isLoginPage && session) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/admin/dashboard";
     return NextResponse.redirect(url);
   }
 
